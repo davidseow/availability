@@ -17,7 +17,9 @@ POST /event
 {
   name: <string>
   description:  <string>
-  timeSlots: [<datetime>,..]
+  timeSlots: [<datetime>,..],
+  duration: <number>,
+  participants: [<string>, <string>]
 }
 
 Response
@@ -25,7 +27,9 @@ Response
   id:  <uid>
   name: <string>
   description:  <string>
-  timeSlots: [<datetime>,..]
+  timeSlots: [<datetime>,..],
+  duration: <number>,
+  participants: [<string>, <string>]
 }
 ```
 
@@ -37,6 +41,13 @@ PUT /event/<id>
   participant: <string>
   preferredTimeSlots: [<datetime>,..]
 }
+
+Response
+{
+  message: 'updated',
+  participant: <string>,
+  selectedTimeSlots: [<datetime>,..]
+}
 ```
 
 _View list available time slots and results_
@@ -46,12 +57,19 @@ GET /event/<id>
 {
   name: <string>
   description:  <string>
-  timeSlots: [<datetime>,..]
-  selectedTimeSlots: [
-    {
-      timeSlot: <datetime>
-      count: number
-    },..
-  ]
+  timeSlots: [<datetime>,..],
+  duration: <number>,
+  preferredTimeSlots: [<datetime>,..]
 }
+
+Response
+{
+    name: <string>,
+    description: <string>,
+    timeSlots: [<datetime>,..],
+    duration: <number>,
+    preferredTimeSlots: [<datetime>,..],
+    participants: [<string>, <string>],
+    voted: [<string>, <string>]
+  }
 ```
