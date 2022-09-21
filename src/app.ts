@@ -2,6 +2,8 @@ import express, { Express, Request, Response } from 'express';
 import dotenv from 'dotenv';
 import { json, urlencoded } from 'body-parser';
 
+import { Event } from './types';
+
 dotenv.config();
 
 const app: Express = express();
@@ -14,14 +16,18 @@ app.get('/', (req: Request, res: Response) => {
 });
 
 app.post('/event', (req: Request, res: Response) => {
-  res.send({
+  const { name, description, timeSlots, participants, duration } = req.body;
+
+  const response: Event = {
     id: 'b183d4e4-c32e-4121-b6dd-b046c117058a',
-    name: 'Poker night 🚬🃏',
-    description: 'Poker night, with fake dinero',
-    timeSlots: [1664654400000, 1664656200000],
-    participants: ['Dave', 'Steph'],
-    duration: 3600
-  });
+    name,
+    description,
+    timeSlots,
+    participants,
+    duration
+  };
+
+  res.status(200).json(response);
 });
 
 app.put('/event/:id', (req: Request, res: Response) => {
