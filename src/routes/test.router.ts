@@ -1,9 +1,9 @@
 import { Router, Request, Response } from 'express';
-import { Event } from './types';
+import { Event } from '../types';
 
-const eventRouter = Router();
+const testRouter = Router();
 
-eventRouter.post('/', (req: Request, res: Response) => {
+testRouter.post('/', (req: Request, res: Response) => {
   const { name, description, timeSlots, participants, duration } = req.body;
 
   const response: Event = {
@@ -18,7 +18,7 @@ eventRouter.post('/', (req: Request, res: Response) => {
   res.status(200).json(response);
 });
 
-eventRouter.put('/:id', (req: Request, res: Response) => {
+testRouter.put('/:id', (req: Request, res: Response) => {
   res.send({
     message: 'updated',
     participant: 'Dave',
@@ -26,7 +26,7 @@ eventRouter.put('/:id', (req: Request, res: Response) => {
   });
 });
 
-eventRouter.get('/:id', (req: Request, res: Response) => {
+testRouter.get('/:id', (req: Request, res: Response) => {
   res.send({
     name: 'Poker night 🚬🃏',
     description: 'Poker night, with fake dinero',
@@ -38,4 +38,4 @@ eventRouter.get('/:id', (req: Request, res: Response) => {
   });
 });
 
-export default eventRouter;
+export default testRouter;
