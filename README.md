@@ -17,17 +17,7 @@ POST /event
 {
   name: <string>
   description:  <string>
-  timeSlots: [<datetime>,..],
-  duration: <number>,
-  participants: [<string>, <string>]
-}
-
-Response
-{
-  id:  <uid>
-  name: <string>
-  description:  <string>
-  timeSlots: [<datetime>,..],
+  timeSlots: [<timestamp>,..],
   duration: <number>,
   participants: [<string>, <string>]
 }
@@ -39,14 +29,7 @@ _Select preferred slots_
 PUT /event/<id>
 {
   participant: <string>
-  preferredTimeSlots: [<datetime>,..]
-}
-
-Response
-{
-  message: 'updated',
-  participant: <string>,
-  selectedTimeSlots: [<datetime>,..]
+  selectedTimeSlots: [<timestamp>,..]
 }
 ```
 
@@ -54,22 +37,15 @@ _View list available time slots and results_
 
 ```json
 GET /event/<id>
-{
-  name: <string>
-  description:  <string>
-  timeSlots: [<datetime>,..],
-  duration: <number>,
-  preferredTimeSlots: [<datetime>,..]
-}
 
 Response
 {
     name: <string>,
     description: <string>,
-    timeSlots: [<datetime>,..],
+    timeSlots: [<timestamp>,..],
     duration: <number>,
-    preferredTimeSlots: [<datetime>,..],
     participants: [<string>, <string>],
-    voted: [<string>, <string>]
+    selectedTimeSlots?: [<timestamp>,..],
+    voted?: [<string>, <string>]
   }
 ```

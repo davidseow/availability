@@ -2,6 +2,7 @@ import express, { Request, Response } from 'express';
 import { ObjectId } from 'mongodb';
 import { collections } from '../services/database.service';
 import Event from '../models/event';
+import { formatDate } from '../util/database.helper';
 
 const eventRouter = express.Router();
 
@@ -26,30 +27,45 @@ eventRouter.get('/:id', async (req: Request, res: Response) => {
         .toArray()) as unknown as Event[]) || [];
     res.status(200).send(events);
   } catch (error) {
-    res.status(500).send((error as Error)?.message);
+    res.status(500).json(error);
   }
 });
 
 eventRouter.post('/', async (req: Request, res: Response) => {
   try {
-    const newEvent = req.body as Event;
+    const { timeSlots, selectedTimeSlots } = req.body;
+
+    const newEvent = {
+      ...req.body,
+      timeSlots: formatDate(timeSlots)
+    } as Event;
+
+    if (selectedTimeSlots) {
+      newEvent.selectedTimeSlots = formatDate(selectedTimeSlots);
+    }
 
     const result = await collections.events?.insertOne(newEvent);
+
     result
       ? res
           .status(201)
           .send(`Successfully created a new event with id ${result.insertedId}`)
       : res.status(500).send('Failed to create a new event.');
   } catch (error) {
-    res.status(400).send((error as Error)?.message);
+    res.status(400).json(error);
   }
 });
 
 eventRouter.put('/:id', async (req: Request, res: Response) => {
   try {
     const { id } = req.params;
+    const { timeSlots, selectedTimeSlots } = req.body;
 
-    const updateEvent = req.body as Event;
+    const updateEvent = {
+      ...req.body,
+      timeSlots: formatDate(timeSlots),
+      selectedTimeSlots: formatDate(selectedTimeSlots)
+    } as Event;
     const query = { _id: new ObjectId(id) };
 
     const result = await collections.events?.updateOne(query, {
@@ -59,7 +75,7 @@ eventRouter.put('/:id', async (req: Request, res: Response) => {
       ? res.status(201).send(`Successfully updated event with id ${id}`)
       : res.status(304).send(`Event with id ${id} not updated`);
   } catch (error) {
-    res.status(400).send((error as Error)?.message);
+    res.status(400).json(error);
   }
 });
 
@@ -78,7 +94,7 @@ eventRouter.delete('/:id', async (req: Request, res: Response) => {
       res.status(404).send(`Event with id ${id} does not exist`);
     }
   } catch (error) {
-    res.status(400).send((error as Error)?.message);
+    res.status(400).json(error);
   }
 });
 

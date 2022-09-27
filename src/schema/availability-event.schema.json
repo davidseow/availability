@@ -1,0 +1,57 @@
+{
+  "$jsonSchema": {
+    "required": [
+      "name",
+      "description",
+      "timeSlots",
+      "duration",
+      "participants"
+    ],
+    "properties": {
+      "_id": {},
+      "name": {
+        "bsonType": "string",
+        "description": "Name of the event"
+      },
+      "description": {
+        "bsonType": "string",
+        "description": "What is the event about? Any requirement(s)?"
+      },
+      "timeSlots": {
+        "bsonType": "array",
+        "description": "List of available time slots (decided by organiser)",
+        "items": {
+          "bsonType": "date",
+          "description": "Time slot, <YYYY-mm-ddTHH:MM:ssZ/Unix time>"
+        }
+      },
+      "duration": {
+        "bsonType": "int",
+        "description": "Duration, in (s) unit"
+      },
+      "selectedTimeSlots": {
+        "bsonType": "array",
+        "description": "List of preferred time slots (decided by participants)",
+        "items": {
+          "bsonType": "date",
+          "description": "Time slot, <YYYY-mm-ddTHH:MM:ssZ/Unix time>"
+        }
+      },
+      "participants": {
+        "bsonType": "array",
+        "description": "List of participants",
+        "items": {
+          "bsonType": "string",
+          "description": "Participant's name"
+        }
+      },
+      "voted": {
+        "bsonType": "array",
+        "description": "List of participant's that has voted",
+        "items": {
+          "bsonType": "string"
+        }
+      }
+    }
+  }
+}

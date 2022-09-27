@@ -1,4 +1,4 @@
-import { ObjectId, Int32, Long } from 'mongodb';
+import { ObjectId, Int32 } from 'mongodb';
 
 export default class Event {
   constructor(
@@ -6,9 +6,9 @@ export default class Event {
     public duration: Int32,
     public name: string,
     public participants: string[],
-    public selectedTimeSlots: Long[],
-    public timeSlots: Long[],
-    public voted: string[],
+    public timeSlots: Date[],
+    public voted?: string[],
+    public selectedTimeSlots?: Date[],
     public id?: ObjectId
   ) {}
 }
