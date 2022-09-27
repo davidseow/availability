@@ -9,6 +9,7 @@
     "dev": "concurrently \"npx tsc --watch\" \"nodemon -q dist/server.js\"",
     "lint": "eslint . --ext .ts",
     "format": "prettier --config .prettierrc 'src/**/*.ts' --write",
+    "format:check": "prettier --config .prettierrc 'src/**/*.ts' --check",
     "test": "jest"
   },
   "repository": {
