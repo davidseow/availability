@@ -28,7 +28,7 @@
   "homepage": "https://github.com/davidseow/availability#readme",
   "dependencies": {
     "body-parser": "^2.0.0",
-    "dotenv": "^16.0.2",
+    "dotenv": "^17.0.0",
     "express": "^5.0.0",
     "mongodb": "^6.0.0"
   },
